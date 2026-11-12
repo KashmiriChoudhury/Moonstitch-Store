@@ -1,0 +1,211 @@
+:root {
+    --bg-page: #fef2f2;
+    --text-dark: #4a3838;
+    --rose-light: #f8b9b9;
+    --rose-mid: #e78383;
+    --peach-soft: #ffdbcf;
+    --white: #ffffff;
+    
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-script: 'Caveat', cursive;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-page);
+    color: var(--text-dark);
+    font-family: var(--font-body);
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: rgba(254, 242, 242, 0.9);
+    backdrop-filter: blur(5px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.navbar nav a {
+    text-decoration: none;
+    color: var(--text-dark);
+    margin-left: 25px;
+    font-size: 0.95rem;
+    transition: opacity 0.2s ease;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+    color: var(--rose-mid);
+}
+
+/* Hero Section */
+.cat-hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+}
+
+.script-subtitle {
+    font-family: var(--font-script);
+    font-size: 1.8rem;
+    color: var(--rose-mid);
+    display: block;
+}
+
+.cat-hero h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin: 5px 0 15px;
+    font-weight: 400;
+}
+
+.divider {
+    color: var(--rose-light);
+    font-size: 1.2rem;
+}
+
+/* Categories Grid */
+.categories-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 20px 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+/* Base Card Style */
+.cat-card {
+    position: relative;
+    border-radius: 16px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(74, 56, 56, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(74, 56, 56, 0.08);
+}
+
+/* Paperclip Accent */
+.paperclip {
+    position: absolute;
+    top: -14px;
+    right: 20px;
+    width: 24px;
+    height: 45px;
+    z-index: 10;
+}
+
+/* Card Image Outer Frames */
+.cat-image-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.inn-box {
+    padding: 8px;
+    border-radius: 12px;
+}
+
+.inn-box img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+/* Text & Button Styling */
+.cat-script {
+    font-family: var(--font-script);
+    font-size: 1.4rem;
+}
+
+.cat-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin: 6px 0 10px;
+    font-weight: 600;
+}
+
+.cat-card p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.cat-btn {
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    border-bottom: 1.5px solid currentColor;
+    padding-bottom: 2px;
+    transition: color 0.2s ease;
+}
+
+.cat-btn:hover {
+    color: var(--rose-mid);
+}
+
+/* Category Palettes (Soft RGBA Opacity + Layered Inner Boxes) */
+.cat-1 { 
+    background-color: rgba(255, 245, 245, 0.85); 
+    color: #4a3838; 
+}
+.cat-1 .cat-script { color: #c98282; }
+.inn-1 { background-color: #ffdbcf; }
+
+.cat-2 { 
+    background-color: rgba(254, 242, 242, 0.85); 
+    color: #4a3838; 
+}
+.cat-2 .cat-script { color: #e78383; }
+.inn-2 { background-color: #f8b9b9; }
+
+.cat-3 { 
+    background-color: rgba(255, 248, 246, 0.85); 
+    color: #4a3838; 
+}
+.cat-3 .cat-script { color: #8a5252; }
+.inn-3 { background-color: #ffe8e0; }
+
+.cat-4 { 
+    background-color: rgba(248, 185, 185, 0.45); 
+    color: #4a3838; 
+}
+.cat-4 .cat-script { color: #4a3838; }
+.inn-4 { background-color: #e78383; }
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 0.85rem;
+    color: var(--rose-mid);
+    border-top: 1px dashed var(--rose-light);
+}

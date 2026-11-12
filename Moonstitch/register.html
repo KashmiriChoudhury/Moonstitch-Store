@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        body{
+            background-image: url(Untitled\ design.jpg);
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center center;
+            margin: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: "Poppins", sans-serif;
+        }
+        .registerbox{
+            background-color: #fef2f2;
+            text-align: center;
+            align-items: center;
+            width: 320px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(2, 27, 35, 0.1);
+        }
+        input{
+            width: 100%;
+            padding: 12px;
+            margin:12px 0px;
+            border-radius: 20px;
+            border: 1px solid #dddd;
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus{
+            border-color: #f8b9b9;
+            box-shadow:0 0 6px #ffdbcf
+        }
+        button{
+            width: 100%;
+            border-radius: 12px;
+            padding: 12px;
+            border: none;
+            background:  #f8b9b9;
+            font-size:16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+            color: white;
+        }
+        button:hover{
+            background: #fa9d9d;
+        }
+        .extra{
+            margin-top: 15px;
+            font-size: 13px;
+            color: #888;
+        }
+        .extra a{
+            color: #f49d9d;
+        }
+        .logo{
+            color:#e78383 ;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="registerbox">
+        <div class="logo">Moonstitch☁️</div>
+        
+        <form id="registerForm">
+            <input type="text" name="name" placeholder="Name" required>
+
+            <input type="email" name="email" placeholder="Email" required>
+
+            <input type="password" name="password" placeholder="Password" minlength="8" required>
+
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" minlength="8" required>
+
+            <button type="submit">Sign up</button>
+        </form>
+
+    <p id="message" role="status"></p>
+
+        <div class="extra">
+            Already have an account? <a href="login.html">Login</a>
+        </div>
+        
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+     const supabaseClient = supabase.createClient(
+        "https://xipvvvsfiuqpgmgpgdjx.supabase.co",
+        "sb_publishable_VPLCMFDWidG9thg0wTF4Ow_YcvJY7dw"
+    );
+const form = document.getElementById("registerForm");
+const message = document.getElementById("message");
+
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const name = form.elements["name"].value.trim();
+    const email = form.elements["email"].value.trim();
+    const password = form.elements["password"].value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    // Check that both passwords match
+    if (password !== confirmPassword) {
+        message.textContent = "Passwords do not match!";
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            "http://localhost:3000/register",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            }
+        );
+
+        const result = await response.json();
+
+if (!response.ok) {
+    message.textContent = result.message;
+    return;
+}
+
+if (!result.session) {
+    message.textContent =
+        "Account created, but login session was not received.";
+    return;
+}
+
+// Save the customer's login session in the browser
+const { error } = await supabaseClient.auth.setSession({
+    access_token: result.session.access_token,
+    refresh_token: result.session.refresh_token
+});
+
+if (error) {
+    message.textContent = "Account created, but automatic login failed.";
+    console.error(error.message);
+    return;
+}
+
+message.textContent = "Registration successful! Redirecting...";
+
+window.location.href = "Home.html";
+    } catch (error) {
+        message.textContent =
+            "Could not connect to the server. Please try again.";
+        console.error(error);
+    }
+});
+</script>
+
+</body>
+</html>
